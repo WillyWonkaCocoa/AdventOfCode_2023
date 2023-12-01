@@ -7,12 +7,10 @@ for line in lines:
     print(line)
 
     max_i = len(line) - 1
-    print("lenght of line is: {}".format(max_i))
     for i in range(len(line)):
         if line[i].isdigit():
             nums.append(line[i])
         else:
-            #print("does {} equal to {}? {}".format(line[i], 's', line[i] == 's'))
             if line[i] == 'o': #one +2
                 if i + 2 <= max_i and line[i:i+3] == "one":
                     nums.append('1')
@@ -27,12 +25,6 @@ for line in lines:
                 elif i + 2 <= max_i and line[i:i+4] == "five":
                     nums.append('5')
             elif line[i] == 's': #six, +2 seven +4
-                '''
-                print("potential number spelled starting with s!")
-                print("i + 4 <= max_i is: {}".format(i + 4 <= max_i))
-                print("line[i:i+4] == \"seven\" is: {}".format(line[i:i+4] == "seven"))
-                print("line[i:i+4] is: {}".format(line[i:i+4]))
-                '''
                 if i + 2 <= max_i and line[i:i+3] == "six":
                     nums.append('6')
                 elif i + 4 <= max_i and line[i:i+5] == "seven":
@@ -44,12 +36,7 @@ for line in lines:
                 if i + 3 <= max_i and line[i:i+4] == "nine":
                     nums.append('9')
 
-
-    print("{} from {}".format(nums, line))
-    print(nums[0]+nums[-1])
-    number = int(nums[0]+nums[-1])
-    print(number)
-    sum += number
-        
+    print("{} from {} -> {}".format(nums, line, int(nums[0]+nums[-1])))
+    sum += int(nums[0]+nums[-1])
 
 print("sum is: {}".format(sum))
