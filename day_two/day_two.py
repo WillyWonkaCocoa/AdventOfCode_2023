@@ -2,7 +2,7 @@ import pytest
 
 sample_input = "sample_input.txt"
 
-truth = {"red":12, "green":13, "blue":14} #r,g,b of bag
+minimum = {"red":0, "green":0, "blue":0} #r,g,b of bag
 
 def solution(filename):
     f = open(filename) 
@@ -10,7 +10,6 @@ def solution(filename):
     sum = 0
 
     for line in lines:
-        is_valid = True
         start_index = line.find(":")
         game_id = line[5:start_index]
         print("Game {}".format(game_id))
@@ -20,22 +19,27 @@ def solution(filename):
         print(line)
 
         for draws in line:
-            #dictionary of rgb for each draw per game
+            # dictionary of rgb for each draw per game
             colors = {x.split()[1]:int(x.split()[0]) for x in draws.split(",")}
 
             print("colors: {}".format(colors))
             for key, value in colors.items():
-                if colors[key] > truth[key]:
-                    is_valid = False
-        if is_valid:
-            game_id = int(game_id)
-            sum += game_id
+                if colors[key] > minimum[key]:
+                    minimum[key] = colors[key]
+
+        cube_power = 1
+        for key, value in minimum.items():
+            cube_power *= minimum[key]
+            # reset for next game
+            minimum[key] = 0                
+
+        sum += cube_power
     print(sum)
     return sum
 
 def test_sample():
-    assert(solution(sample_input) == 8)
+    assert(solution(sample_input) == 2286)
 
 answer = solution('day_two.txt')
 
-test_sample()
+#test_sample()
