@@ -19,7 +19,6 @@ def solution(filename):
         isAdjacent = False
         is_part_of_num = False
         for c in row:
-            print("current char: {}".format(c))
             if c.isdigit():
                 num = num + c
                 is_part_of_num = True
@@ -56,14 +55,11 @@ def solution(filename):
                
                 if isAdjacent:
                     # add to dictionary of gear and adjacent numbers
-                    print("adjacent gears: {}".format(adjacent_gears))
                     for adjacent_gear in adjacent_gears:
                         if adjacent_gear in gears:
                             gears[adjacent_gear].append(int(num))
-                            print("adding num: {} to gears: {}".format(num, gears))
                         else:
                             gears[adjacent_gear] = [int(num)]
-                            print("adding num: {} to gears: {}".format(num, gears))
                 
                 # reset
                 num = ""
@@ -77,10 +73,8 @@ def solution(filename):
     for key in gears:
         # if gear has exactly two adjacent numbers, multiply and add product to total sum
         value = gears[key]
-        print("* at coordinate {} is adjacent to {}".format(key, value))
         if len(value) == 2:
             sum += value[0] * value[1]
-    print(sum)
     return sum
 
 def is_gear(c):
