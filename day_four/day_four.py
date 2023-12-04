@@ -10,7 +10,6 @@ def solution(filename):
     for line in lines:
         start_index = line.find(":")
         card_id = line[5:start_index]
-        print("Card {}".format(card_id))
         if start_index != -1:
             # get all games
             winning_nums, scratched_nums = line[start_index+1:].strip().split("|")
@@ -21,12 +20,10 @@ def solution(filename):
         points_for_line = -1
         for num in scratched_nums:
             if num in winning_nums:
-                print("Winning number: {}!".format(num))
                 if points_for_line == -1:
                     points_for_line = 1
                 else:
                     points_for_line *= 2
-                print("{} point".format(points_for_line))
 
         if points_for_line > 0:
             sum += points_for_line
