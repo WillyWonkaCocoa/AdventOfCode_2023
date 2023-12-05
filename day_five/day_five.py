@@ -15,13 +15,10 @@ def solution(filename):
     
     source = seeds
     mapping = []
-    print(seeds)
     for line in lines[2:]:
         name = ""
         if line == "\n":
             # empty line
-            print("{}".format(name))
-            print(mapping)
             source = source_to_destination_map(source, mapping)
             mapping = []
         elif line[-2:] == ":\n":
