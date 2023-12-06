@@ -15,13 +15,11 @@ def solution(filename):
     
     source = seeds
     mapping = []
-    print(source)
     for line in lines[2:]:
         name = ""
         if line == "\n":
             # empty line
             source = source_to_destination_map(source, mapping)
-            print("mapped ranges: {}".format(source))
             mapping = []
         elif line[-2:] == ":\n":
             # name of mapping
@@ -32,8 +30,6 @@ def solution(filename):
     
     # last mapping: humidity-to-location map:
     source = source_to_destination_map(source, mapping)
-    print("mapped ranges: {}".format(source))
-    print(source[::2])
     print(min(source[::2]))
     return min(source[::2]) # filter out ranges, just get smallest starting value
 
@@ -49,7 +45,6 @@ def source_to_destination_map(source_list, mapping):
             source_start, dest_start, source_range = mapping[i][1], mapping[i][0], mapping[i][2]
             source_end = source_start + source_range - 1
             
-            #print("start: {} range: {}, source_start: {} source_range: {}".format(item_start, item_range, source_start, source_range))
             if item_end < source_start or item_start > source_end:
                 # item starts out of range (too small or too big)
                 pass
@@ -61,7 +56,6 @@ def source_to_destination_map(source_list, mapping):
                 if (item_start + item_range - 1) <= (source_start+source_range - 1):
                     # ends in range
                     # add mapped range to mapping
-                    #print("source start of: {} and range of: {} is in range. Mapped to start: {} and range: {}".format(source_start, source_range, map_start, item_range))
                     destination_list.extend([map_start, item_range])
 
                 else:
