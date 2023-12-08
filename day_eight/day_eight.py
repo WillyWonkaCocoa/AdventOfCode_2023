@@ -1,46 +1,55 @@
-import pytest
+import pytest, math
 
 sample_input = "sample_input.txt"
 sample_input_2 = "sample_input_2.txt"
+sample_input_part_two = "sample_input_part_two.txt"
 
 def solution(filename):
     f = open(filename) 
     lines = f.readlines()
 
     instructions = lines[0].strip()
-    print(instructions)
     total_steps = 0
-    curr_location = "AAA"
+    curr_location = []
     destination = "ZZZ"
+    steps_per_starting_point = []
     map = {}
 
     for line in lines[2:]:
         dest, dest_left, dest_right = line[:3], line[7:10], line[12:15]
-        print("dest {} = ({}, {})".format(dest, dest_left, dest_right))
+        if dest[-1] == "A":
+            curr_location.append(dest)
+        #print("dest {} = ({}, {})".format(dest, dest_left, dest_right))
         map[dest] = (dest_left, dest_right)
 
-    while(curr_location != destination):
+    while(len(curr_location) > 0):
         direction = ""
-        print("currently at {}: checking index {} of directions: {} for {}: {}".format(curr_location, total_steps % len(instructions), instructions, curr_location, map[curr_location]))
-        print("total steps {} % {} is {}".format(total_steps, len(instructions), total_steps % len(instructions)))
+        #print("currently at {}: checking index {} of directions: {} for {}: {}".format(curr_location, total_steps % len(instructions), instructions, curr_location, map[curr_location]))
+        #print("total steps {} % {} is {}".format(total_steps, len(instructions), total_steps % len(instructions)))
+        locations_end_with_z = 0
         if total_steps == 0:
             direction = instructions[0]
         else:
             direction = instructions[total_steps % len(instructions)]
-
-        if direction == "L":
-            curr_location = map[curr_location][0]
-        elif direction == "R":
-            curr_location = map[curr_location][1]
-        else:
-            print("Invalid direction!")
-
-        print("now at: {}".format(curr_location))
+        #print("Curent location: {}".format(curr_location))
+        for i in range(len(curr_location)):
+            if direction == "L":
+                curr_location[i] = map[curr_location[i]][0]
+            elif direction == "R":
+                curr_location[i] = map[curr_location[i]][1]
+            else:
+                print("Invalid direction!")
 
         total_steps += 1
-    
-    print(total_steps)
-    return total_steps
+        for location in curr_location:
+            if location[-1] == "Z":
+                steps_per_starting_point.append(total_steps)
+                print("took {} steps to reach {}".format(total_steps, location))
+
+        curr_location = [x for x in curr_location if x[-1] != "Z"]
+
+    print(math.lcm(*steps_per_starting_point))
+    return math.lcm(*steps_per_starting_point)
 
 
 def test_sample():
@@ -49,7 +58,11 @@ def test_sample():
 def test_sample_two():
     assert(solution(sample_input_2) == 6)
 
+def test_sample_part_two():
+    assert(solution(sample_input_part_two) == 6)
+
 #answer = solution('day_eight.txt')
 
-test_sample()
-test_sample_two()
+#test_sample()
+#test_sample_two()
+test_sample_part_two()
