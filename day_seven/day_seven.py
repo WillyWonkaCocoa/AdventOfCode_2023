@@ -22,7 +22,6 @@ def getHand(hand):
                 hand_dict[c] = 1
         sorted_card_frequency = [value for key, value in hand_dict.items()]
         sorted_card_frequency.sort(reverse=True)
-        #print(sorted_card_frequency)
         if len(hand_dict) == 1:
             # five of a kind
             return HAND.FIVE_OF_A_KIND
@@ -53,7 +52,6 @@ class Hand:
         self.hand, self.val = line.split()
         self.val = int(self.val)
         self.type = getHand(self.hand)
-        #print(self.hand, self.val)
 
     def __lt__(self, other):
         # overloaded comparison operator
@@ -76,13 +74,11 @@ def solution(filename):
     f = open(filename) 
     lines = f.readlines()
     num_of_ranks = len(lines)
-    # make hand min_heap
     hand_list = []
     rank = 1
     total_winnings = 0
 
     for line in lines:
-        # add hand to heap using compareHands as the comparison operater
         hand = Hand(line.strip())
         hand_list.append(hand)
 
