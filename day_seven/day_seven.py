@@ -104,9 +104,6 @@ def solution(filename):
     hand_list.sort()
 
     for hand in hand_list:
-        
-        if "J" in hand.hand:
-            print("{} with {} rank {} and a winning of: {}".format(hand.hand, hand.type, rank, hand.getWinning()))
         total_winnings += hand.val * rank
         rank += 1
 
