@@ -11,7 +11,6 @@ def solution(filename):
     instructions = lines[0].strip()
     total_steps = 0
     curr_location = []
-    destination = "ZZZ"
     steps_per_starting_point = []
     map = {}
 
@@ -19,19 +18,15 @@ def solution(filename):
         dest, dest_left, dest_right = line[:3], line[7:10], line[12:15]
         if dest[-1] == "A":
             curr_location.append(dest)
-        #print("dest {} = ({}, {})".format(dest, dest_left, dest_right))
         map[dest] = (dest_left, dest_right)
 
     while(len(curr_location) > 0):
         direction = ""
-        #print("currently at {}: checking index {} of directions: {} for {}: {}".format(curr_location, total_steps % len(instructions), instructions, curr_location, map[curr_location]))
-        #print("total steps {} % {} is {}".format(total_steps, len(instructions), total_steps % len(instructions)))
-        locations_end_with_z = 0
         if total_steps == 0:
             direction = instructions[0]
         else:
             direction = instructions[total_steps % len(instructions)]
-        #print("Curent location: {}".format(curr_location))
+
         for i in range(len(curr_location)):
             if direction == "L":
                 curr_location[i] = map[curr_location[i]][0]
