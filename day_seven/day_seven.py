@@ -3,7 +3,7 @@ import heapq as hq
 from enum import Enum
 sample_input = "sample_input.txt"
 
-card_values = {"T":10,"J":11,"Q":12,"K":13,"A":14}
+card_values = {"T":10,"J":1,"Q":12,"K":13,"A":14}
 class HAND(Enum):
     HIGH_CARD = 1
     ONE_PAIR = 2
@@ -27,25 +27,44 @@ def getHand(hand):
             return HAND.FIVE_OF_A_KIND
         elif len(hand_dict) == 5:
             # high card
-            return HAND.HIGH_CARD
+            if "J" in hand_dict and hand_dict["J"] == 1:
+                return HAND.ONE_PAIR 
+            else:
+                return HAND.HIGH_CARD
         elif len(hand_dict) == 2:
             # four of a kind
             if sorted_card_frequency[0] == 4:
-                return HAND.FOUR_OF_A_KIND
+                if "J" in hand_dict:
+                    return HAND.FIVE_OF_A_KIND
+                else:
+                    return HAND.FOUR_OF_A_KIND
             else:
-                # full house
-                return HAND.FULL_HOUSE
-            pass
+                if "J" in hand_dict:
+                    return HAND.FIVE_OF_A_KIND
+                else:
+                    # full house
+                    return HAND.FULL_HOUSE
         elif len(hand_dict) == 3:
             # 3 of a kind
             if sorted_card_frequency[0] == 3:
+                if "J" in hand_dict:
+                    return HAND.FOUR_OF_A_KIND
+                else:
+                    return HAND.THREE_OF_A_KIND
+            else:
+                if "J" in hand_dict and hand_dict["J"] == 2:
+                    return HAND.FOUR_OF_A_KIND
+                elif "J" in hand_dict and hand_dict["J"] == 1:
+                    return HAND.FULL_HOUSE
+                else:
+                    # two pair
+                    return HAND.TWO_PAIR
+        elif len(hand_dict) == 4:
+            if "J" in hand_dict:
                 return HAND.THREE_OF_A_KIND
             else:
-                # two pair
-                return HAND.TWO_PAIR
-        elif len(hand_dict) == 4:
-            # one pair
-            return HAND.ONE_PAIR
+                # one pair
+                return HAND.ONE_PAIR
 
 class Hand:
     def __init__(self, line):
@@ -85,6 +104,9 @@ def solution(filename):
     hand_list.sort()
 
     for hand in hand_list:
+        
+        if "J" in hand.hand:
+            print("{} with {} rank {} and a winning of: {}".format(hand.hand, hand.type, rank, hand.getWinning()))
         total_winnings += hand.val * rank
         rank += 1
 
@@ -92,7 +114,7 @@ def solution(filename):
     return total_winnings  
 
 def test_sample():
-    assert(solution(sample_input) == 6440)
+    assert(solution(sample_input) == 5905)
 
 answer = solution('day_seven.txt')
 
