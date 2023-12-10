@@ -1,5 +1,8 @@
 import pytest
 sample_inputs = {"sample_input.txt": 4, "sample_input_two.txt": 8}
+sample_inputs_part_two = {"day_ten_part_two_sample_input_one.txt": 4, \
+                          "day_ten_part_two_sample_input_two.txt": 8, \
+                            "day_ten_part_two_sample_input_three.txt": 10}
 
 def solution(filename):
     f = open(filename) 
@@ -80,6 +83,11 @@ def test_samples():
     for key, value in sample_inputs.items(): 
         assert(solution(key) == value)
 
-answer = solution('day_ten.txt')
+def test_samples_part_two():
+    for key, value in sample_inputs_part_two.items():
+        assert(solution(key) == value)
 
-#test_samples()
+#answer = solution('day_ten.txt')
+
+test_samples()
+test_samples_part_two()
