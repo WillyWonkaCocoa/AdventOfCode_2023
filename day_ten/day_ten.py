@@ -1,6 +1,5 @@
 import pytest
-sample_input = "sample_input.txt"
-sample_input_two = "sample_input_two.txt"
+sample_inputs = {"sample_input.txt": 4, "sample_input_two.txt": 8}
 
 def solution(filename):
     f = open(filename) 
@@ -77,14 +76,10 @@ def find_connecting_pipe(coord, prev_coord, map):
             if map[x_coord][y_coord + 1] in direction_to_piece_map["RIGHT"]:
                 return (x_coord,y_coord+1)
 
-def test_sample():
-    assert(solution(sample_input) == 4)
-
-def test_sample_two():
-    assert(solution(sample_input_two) == 8)
+def test_samples():
+    for key, value in sample_inputs.items(): 
+        assert(solution(key) == value)
 
 answer = solution('day_ten.txt')
 
-#test_sample()
-
-#test_sample_two()
+#test_samples()
