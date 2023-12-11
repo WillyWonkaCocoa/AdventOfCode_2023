@@ -40,13 +40,13 @@ def solution(filename):
             if i in galaxy_rows:
                 steps += 1
             else:
-                steps += 2
+                steps += 1000000
 
         for j in range(y_start+1, y_end+1):
             if j in galaxy_cols:
                 steps += 1
             else:
-                steps += 2
+                steps += 1000000
         print("shortest distance: {}".format(steps))
         sum_of_shortest_len += steps
 
