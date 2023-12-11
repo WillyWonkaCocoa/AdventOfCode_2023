@@ -6,7 +6,6 @@ def solution(filename):
     f = open(filename) 
     lines = f.readlines()
     map = []
-    new_map = []
     galaxy_coords = []
     galaxy_rows = []
     galaxy_cols = []
@@ -25,7 +24,6 @@ def solution(filename):
     galaxy_rows = set(galaxy_rows)
     galaxy_cols = set(galaxy_cols)
     galaxy_combos = list(combinations(galaxy_coords, 2))
-    print(galaxy_coords)
     print("Out of {} galaxies we get {} combinations.".format(len(galaxy_coords), len(galaxy_combos)))
 
     for combo in galaxy_combos:
@@ -33,8 +31,6 @@ def solution(filename):
         x_start, x_end = min(galaxy_one[0], galaxy_two[0]), max(galaxy_one[0], galaxy_two[0])
         y_start, y_end = min(galaxy_one[1], galaxy_two[1]), max(galaxy_one[1], galaxy_two[1])
         steps = 0
-
-        print("calculating shortest distance between {} and {}".format(galaxy_one, galaxy_two))
 
         for i in range(x_start+1, x_end+1):
             if i in galaxy_rows:
@@ -47,7 +43,7 @@ def solution(filename):
                 steps += 1
             else:
                 steps += 1000000
-        print("shortest distance: {}".format(steps))
+        
         sum_of_shortest_len += steps
 
     print(sum_of_shortest_len)    
