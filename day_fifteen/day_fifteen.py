@@ -22,7 +22,6 @@ def solution(filename):
             curr_value += ord(char)
             curr_value *= 17
             curr_value %= 256
-        print("After \"{}\":".format(piece))
         
         if operation == "-":
             if curr_value in boxes:
@@ -57,20 +56,16 @@ def solution(filename):
 
         else:
             print("invalid operation: {} for label: {}".format(operation, label))
-        
-        #print(boxes)
-
     
     for box, lenses in boxes.items():
         box_sum = 0
         index = 1
         for lens in lenses:
             box_sum += (box+1) * index * int(lens[1])
-            print("box {} sum for label {}: {} is {}".format(box, lens[0], lens[1], (box+1) * index * int(lens[1])))
+            #print("box {} sum for label {}: {} is {}".format(box, lens[0], lens[1], (box+1) * index * int(lens[1])))
             index += 1
         sum += box_sum
 
-    print(sum)
     return sum
 
 def test_sample():
